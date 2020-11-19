@@ -5,7 +5,7 @@ You can attach a recurring schedule to this runbook to run it at a specific time
 ## This script is using following contribution:
 https://gallery.technet.microsoft.com/scriptcenter/Stop-Start-AzureVM-535c2414
 
-## The switch disk part that has been added to above contribiotn is described here:
+## The switch disk part that has been added to above contribution is described here:
 https://docs.microsoft.com/en-us/azure/virtual-machines/windows/convert-disk-storage 
 
 # REQUIRED
