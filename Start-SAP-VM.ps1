@@ -84,7 +84,7 @@ workflow Start-SAP-VM
         Write-Output "Starting VMs"; 
         foreach ($AzureVM in $AzureVMsToHandle) 
         { 
-            Write-Output "Switching all disks to $DiskTypeStarted to improve performance ..."; 
+            Write-Output "Switching all disks to $DiskTypeStarted for optimal performance during operations ..."; 
             $vmResource = Get-AzureRmResource -Name $AzureVM
             $vmDisks = Get-AzureRmDisk -ResourceGroupName $vmResource.ResourceGroupName 
             $vm = Get-AzureRmVM -Name $AzureVM -resourceGroupName $vmResource.ResourceGroupName
