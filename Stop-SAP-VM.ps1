@@ -10,38 +10,33 @@ Besides following links are helpful:
 https://docs.microsoft.com/en-us/powershell/module/azurerm.compute/new-azurermdiskupdateconfig?view=azurermps-6.13.0
 https://docs.microsoft.com/en-us/azure/automation/troubleshoot/runbooks (why using "InlineScript")
 https://docs.microsoft.com/de-de/system-center/sma/overview-powershell-workflows?view=sc-sma-2019
+
 #>
 
-Workflow Stop-Start-AzureVM 
+workflow Stop-SAP-VM
 { 
     Param 
     (    
-        [Parameter(Mandatory=$true)][ValidateNotNullOrEmpty()] 
+        [Parameter(Mandatory=$false)][ValidateNotNullOrEmpty()] 
         [String] 
-        $AzureSubscriptionId="1234567c-9f94-9f9b-999c-bbb12345y12d", 
-        [Parameter(Mandatory=$true)][ValidateNotNullOrEmpty()] 
-        [String] 
-        $AzureVMList="sapdemoides", 
-        [Parameter(Mandatory=$true)][ValidateSet("Start","Stop")] 
-        [String] 
-        $Action="Start",
-        [Parameter(Mandatory=$true)][ValidateSet("Premium_LRS","Standard_LRS","StandardSSD_LRS","UltraSSD_LRS")] 
-        [String] 
-        $DiskTypeStopped="Standard_LRS",
-        [Parameter(Mandatory=$true)][ValidateSet("Standard_LRS","Premium_LRS","StandardSSD_LRS","UltraSSD_LRS")] 
-        [String] 
-        $DiskTypeStarted="Premium_LRS"
+        $AzureVMList="sapdemonw7"
     ) 
+
+    "Setting some variables ..."
+    $Action="Stop"
+    $AzureSubscriptionId="35b67b4c-4fd4-4f0b-997c-bbb82032d45d"
+    $DiskTypeStopped="Standard_LRS"
+    $DiskTypeStarted="Premium_LRS"
 
     "Loging in to Azure ..."
     $runAsConnectionProfile = Get-AutomationConnection -Name "AzureRunAsConnection"
     Add-AzureRmAccount -ServicePrincipal -TenantId $runAsConnectionProfile.TenantId `
     -ApplicationId $runAsConnectionProfile.ApplicationId `
     -CertificateThumbprint $runAsConnectionProfile.CertificateThumbprint 
-    
+
     Write-Output "Authenticated with Automation Run As Account."
     Select-AzureRmSubscription -SubscriptionId $AzureSubscriptionId
- 
+
     if($AzureVMList -ne "All") 
     { 
         $AzureVMs = $AzureVMList.Split(",") 
